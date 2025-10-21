@@ -17,7 +17,7 @@ class Booking extends Model
         'duration_hours',
         'amount',
         'status',
-        'payment_status',
+        'payment_img',
     ];
 
     protected $casts = [

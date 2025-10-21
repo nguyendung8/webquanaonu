@@ -21,6 +21,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 Route::get('/products', [\App\Http\Controllers\User\ProductController::class, 'index'])->name('user.products');
 Route::get('/products/{product}', [\App\Http\Controllers\User\ProductController::class, 'show'])->name('user.products.show');
 
+Route::get('/cats', [\App\Http\Controllers\User\CatController::class, 'index'])->name('user.cats');
+Route::get('/cats/{cat}/book', [\App\Http\Controllers\User\CatController::class, 'showBookingForm'])->name('user.cats.book');
+Route::post('/cats/{cat}/book', [\App\Http\Controllers\User\CatController::class, 'book'])->name('user.cats.book.store');
+
 Route::get('/feedback', [\App\Http\Controllers\User\FeedbackController::class, 'index'])->name('user.feedback');
 Route::post('/feedback', [\App\Http\Controllers\User\FeedbackController::class, 'store'])->middleware('auth')->name('user.feedback.store');
 
@@ -32,8 +36,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/cart/{cart}', [\App\Http\Controllers\User\CartController::class, 'update'])->name('user.cart.update');
     Route::delete('/cart/{cart}', [\App\Http\Controllers\User\CartController::class, 'destroy'])->name('user.cart.destroy');
 
+    // Checkout
+    Route::get('/checkout', [\App\Http\Controllers\User\CheckoutController::class, 'show'])
+        ->name('user.checkout');
+    Route::post('/checkout', [\App\Http\Controllers\User\CheckoutController::class, 'placeOrder'])
+        ->name('user.checkout.place');
+
     Route::get('/change-password', [\App\Http\Controllers\User\ProfileController::class, 'showChangePassword'])->name('user.change-password');
     Route::patch('/change-password', [\App\Http\Controllers\User\ProfileController::class, 'changePassword'])->name('user.change-password.update');
+
+    Route::get('/bookings', [\App\Http\Controllers\User\BookingController::class, 'index'])->name('user.bookings');
 });
 
 Route::middleware(['auth','is_admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -42,6 +54,7 @@ Route::middleware(['auth','is_admin'])->prefix('admin')->name('admin.')->group(f
 
     Route::resource('categories', CategoryController::class)->except(['show']);
     Route::resource('products', ProductController::class)->except(['show']);
+    Route::patch('products/{product}/toggle-availability', [ProductController::class, 'toggleAvailability'])->name('products.toggleAvailability');
     Route::resource('cats', CatController::class)->except(['show']);
 
     Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->only(['index', 'show', 'destroy']);

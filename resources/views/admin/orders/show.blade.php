@@ -26,7 +26,32 @@
                     <span class="badge badge-danger">Đã hủy</span>
                 @endif
             </p>
-            <p><strong>Tổng tiền:</strong> <span style="font-size:20px;color:var(--coffee)">{{ number_format($order->total, 0, ',', '.') }}đ</span></p>
+
+            <p>
+                <strong>Phương thức thanh toán:</strong>
+                @if($order->payment_method === 'TRANSFER')
+                    <span class="badge" style="background:#e7f5ff;color:#1c7ed6">Chuyển khoản</span>
+                @else
+                    <span class="badge" style="background:#fff3bf;color:#a68000">COD</span>
+                @endif
+            </p>
+
+            @if($order->payment_method === 'TRANSFER')
+                <div style="margin-top:8px">
+                    <strong>Ảnh chuyển khoản:</strong>
+                    @if(!empty($order->payment_img))
+                        <div style="margin-top:8px">
+                            <a href="{{ asset($order->payment_img) }}" target="_blank" title="Xem ảnh gốc">
+                                <img src="{{ asset($order->payment_img) }}" alt="Ảnh chuyển khoản" style="max-width:260px;border-radius:8px;border:1px solid var(--border)">
+                            </a>
+                        </div>
+                    @else
+                        <div class="alert alert-error" style="margin-top:8px">Chưa có ảnh xác nhận chuyển khoản.</div>
+                    @endif
+                </div>
+            @endif
+
+            <p style="margin-top:10px"><strong>Tổng tiền:</strong> <span style="font-size:20px;color:var(--coffee)">{{ number_format($order->total, 0, ',', '.') }}đ</span></p>
         </div>
     </div>
 

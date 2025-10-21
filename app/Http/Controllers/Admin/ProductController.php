@@ -91,5 +91,12 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('admin.products.index')->with('success', 'Đã xóa sản phẩm.');
     }
+
+    public function toggleAvailability(Request $request, Product $product)
+    {
+        $product->update(['availability' => $request->availability]);
+
+        return response()->json(['success' => true]);
+    }
 }
 

@@ -89,8 +89,10 @@
             <a href="{{ route('user.feedback') }}" class="{{ request()->routeIs('user.feedback') ? 'active' : '' }}">Phản hồi</a>
             @auth
                 <a href="{{ route('user.orders') }}" class="{{ request()->routeIs('user.orders') ? 'active' : '' }}">Đơn hàng</a>
+                <a href="{{ route('user.bookings') }}" class="{{ request()->routeIs('user.bookings') ? 'active' : '' }}">Đặt lịch</a>
             @else
                 <a href="{{ route('login') }}">Đơn hàng</a>
+                <a href="{{ route('login') }}">Đặt lịch</a>
             @endauth
         </nav>
 

@@ -33,8 +33,8 @@ class ProductController extends Controller
         $products = $query->orderBy('created_at', 'desc')->paginate(12)->withQueryString();
         $categories = Category::orderBy('name')->get();
 
-        // Cats section
-        $catQuery = Cat::where('availability', true);
+        // Cats section with real-time availability check
+        $catQuery = Cat::query();
 
         if ($request->filled('cat_gender')) {
             $catQuery->where('gender', $request->cat_gender);
@@ -57,6 +57,38 @@ class ProductController extends Controller
         }
 
         $cats = $catQuery->orderBy('created_at', 'desc')->get();
+
+        // Check real-time availability for each cat
+        $cats->transform(function ($cat) {
+            $now = now();
+            $today = $now->format('Y-m-d');
+            $currentTime = $now->format('H:i:s');
+
+            // Check if cat is currently booked (only confirmed bookings)
+            $isCurrentlyBooked = \App\Models\Booking::where('cat_id', $cat->id)
+                ->where('booking_date', $today)
+                ->where('status', 'confirmed')
+                ->where(function($query) use ($currentTime) {
+                    $query->where('booking_time', '<=', $currentTime)
+                          ->whereRaw('ADDTIME(booking_time, CONCAT(duration_hours, ":00:00")) > ?', [$currentTime]);
+                })
+                ->exists();
+
+            // Check if cat has any future confirmed bookings
+            $hasFutureBookings = \App\Models\Booking::where('cat_id', $cat->id)
+                ->where('status', 'confirmed')
+                ->where(function($query) use ($today, $currentTime) {
+                    $query->where('booking_date', '>', $today)
+                          ->orWhere(function($subQuery) use ($today, $currentTime) {
+                              $subQuery->where('booking_date', $today)
+                                       ->where('booking_time', '>', $currentTime);
+                          });
+                })
+                ->exists();
+
+            $cat->is_available = !$isCurrentlyBooked && !$hasFutureBookings;
+            return $cat;
+        });
 
         return view('user.products', compact('products', 'categories', 'cats'));
     }

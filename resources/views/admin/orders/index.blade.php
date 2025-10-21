@@ -21,6 +21,7 @@
                 <th>Khách hàng</th>
                 <th>Tổng tiền</th>
                 <th>Trạng thái</th>
+                <th>Thanh toán</th>
                 <th>Ngày đặt</th>
                 <th>Thao tác</th>
             </tr>
@@ -35,9 +36,16 @@
                     @if($order->status === 'pending')
                         <span class="badge badge-warning">Chờ xử lý</span>
                     @elseif($order->status === 'completed')
-                        <span class="badge badge-success">Hoàn thành</span>
+                        <span class="badge badge-success">Xác nhận</span>
                     @else
                         <span class="badge badge-danger">Đã hủy</span>
+                    @endif
+                </td>
+                <td>
+                    @if($order->payment_method === 'TRANSFER')
+                        <span class="badge" style="background:#e7f5ff;color:#1c7ed6">Chuyển khoản</span>
+                    @else
+                        <span class="badge" style="background:#fff3bf;color:#a68000">COD</span>
                     @endif
                 </td>
                 <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>

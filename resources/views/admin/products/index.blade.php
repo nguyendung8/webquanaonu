@@ -43,11 +43,13 @@
                 <td>{{ $product->category->name }}</td>
                 <td>{{ number_format($product->price, 0, ',', '.') }}đ</td>
                 <td>
-                    @if($product->availability)
-                        <span class="badge badge-success">Có sẵn</span>
-                    @else
-                        <span class="badge badge-danger">Hết hàng</span>
-                    @endif
+                    <div style="display:flex;align-items:center;gap:12px">
+                        <label class="toggle-switch">
+                            <input type="checkbox" {{ $product->availability ? 'checked' : '' }}
+                                   onchange="toggleAvailability({{ $product->id }}, this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
                 </td>
                 <td>
                     <div class="actions">
@@ -116,12 +118,6 @@
                 <textarea id="description" name="description"></textarea>
             </div>
 
-            <div class="form-group">
-                <label style="display:flex;align-items:center;gap:8px">
-                    <input type="checkbox" id="availability" name="availability" value="1" checked>
-                    <span>Còn hàng</span>
-                </label>
-            </div>
 
             <div style="display:flex;gap:12px;justify-content:flex-end">
                 <button type="button" onclick="closeModal()" class="btn btn-secondary">Hủy</button>
@@ -142,7 +138,6 @@ function openModal() {
     document.getElementById('category_id').value = '';
     document.getElementById('price').value = '';
     document.getElementById('description').value = '';
-    document.getElementById('availability').checked = true;
     document.getElementById('currentImage').innerHTML = '';
     document.getElementById('productModal').style.display = 'flex';
 }
@@ -155,7 +150,6 @@ function editProduct(prod) {
     document.getElementById('category_id').value = prod.category_id;
     document.getElementById('price').value = prod.price;
     document.getElementById('description').value = prod.description || '';
-    document.getElementById('availability').checked = prod.availability;
     if(prod.image) {
         document.getElementById('currentImage').innerHTML = '<img src="/'+prod.image+'" class="preview" style="margin-top:8px">';
     } else {
@@ -172,6 +166,79 @@ window.onclick = function(e) {
     const modal = document.getElementById('productModal');
     if (e.target === modal) closeModal();
 }
+
+function toggleAvailability(productId, isAvailable) {
+    fetch(`/admin/products/${productId}/toggle-availability`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({
+            availability: isAvailable
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Reload the page to refresh the product list
+            window.location.reload();
+        } else {
+            // Revert toggle if failed
+            event.target.checked = !isAvailable;
+            alert('Có lỗi xảy ra khi cập nhật trạng thái');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        event.target.checked = !isAvailable;
+        alert('Có lỗi xảy ra khi cập nhật trạng thái');
+    });
+}
 </script>
+
+<style>
+/* Toggle Switch Styles */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+input:checked + .toggle-slider {
+    background-color: #4CAF50;
+}
+input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+</style>
 @endsection
 

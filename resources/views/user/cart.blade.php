@@ -57,7 +57,7 @@
                             <span>{{ number_format($total, 0, ',', '.') }}đ</span>
                         </div>
                     </div>
-                    <button class="btn" style="width:100%;margin-top:24px" onclick="alert('Tính năng thanh toán đang phát triển')">Thanh toán</button>
+                    <a href="{{ route('user.checkout') }}" class="btn" style="width:100%;margin-top:24px;text-align:center">Thanh toán</a>
                     <a href="{{ route('user.products') }}" class="btn btn-outline" style="width:100%;margin-top:12px;text-align:center">Tiếp tục mua sắm</a>
                 </div>
             </div>
