@@ -21,6 +21,12 @@ class BookingController extends Controller
         return view('admin.bookings.index', compact('bookings'));
     }
 
+    public function show(Booking $booking)
+    {
+        $booking->load('user', 'cat');
+        return view('admin.bookings.show', compact('booking'));
+    }
+
     public function updateStatus(Request $request, Booking $booking)
     {
         $request->validate([

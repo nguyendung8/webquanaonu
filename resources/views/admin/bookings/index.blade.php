@@ -49,6 +49,7 @@
                 </td>
                 <td>
                     <div class="actions">
+                        <a href="{{ route('admin.bookings.show', $booking) }}" class="btn btn-sm btn-secondary">Chi tiết</a>
                         @if($booking->status === 'pending')
                             <form action="{{ route('admin.bookings.updateStatus', $booking) }}" method="POST" style="display:inline">
                                 @csrf
