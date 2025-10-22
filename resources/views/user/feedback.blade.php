@@ -11,38 +11,23 @@
                 @csrf
 
                 <div style="margin-bottom:20px">
-                    <label style="display:block;margin-bottom:8px;font-weight:600">Phản hồi về (tùy chọn)</label>
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-                        <select name="product_id">
-                            <option value="">-- Chọn sản phẩm --</option>
-                            @foreach($products as $product)
-                                <option value="{{ $product->id }}">{{ $product->name }}</option>
-                            @endforeach
-                        </select>
-                        <select name="cat_id">
-                            <option value="">-- Chọn mèo --</option>
-                            @foreach($cats as $cat)
-                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div style="margin-bottom:20px">
-                    <label style="display:block;margin-bottom:8px;font-weight:600">Đánh giá</label>
+                    <label style="display:block;margin-bottom:8px;font-weight:600">Đánh giá *</label>
                     <div style="display:flex;gap:8px">
                         @for($i = 1; $i <= 5; $i++)
                             <label style="cursor:pointer">
-                                <input type="radio" name="rating" value="{{ $i }}" style="display:none" class="rating-input">
+                                <input type="radio" name="rating" value="{{ $i }}" style="display:none" class="rating-input" {{ $i == 5 ? 'checked' : '' }}>
                                 <i class="far fa-star rating-star" data-value="{{ $i }}" style="font-size:24px;color:#fbbf24"></i>
                             </label>
                         @endfor
                     </div>
+                    @error('rating')
+                        <span style="color:#e63946;font-size:14px">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div style="margin-bottom:20px">
                     <label style="display:block;margin-bottom:8px;font-weight:600">Nội dung phản hồi *</label>
-                    <textarea name="content" rows="6" required placeholder="Chia sẻ trải nghiệm của bạn..."></textarea>
+                    <textarea name="content" rows="6" required placeholder="Chia sẻ trải nghiệm của bạn về Pamela Shop..."></textarea>
                     @error('content')
                         <span style="color:#e63946;font-size:14px">{{ $message }}</span>
                     @enderror
@@ -52,7 +37,7 @@
             </form>
         @else
             <div style="text-align:center;padding:40px">
-                <i class="fas fa-lock" style="font-size:48px;color:var(--accent);margin-bottom:16px"></i>
+                <i class="fas fa-lock" style="font-size:48px;color:var(--pink);margin-bottom:16px"></i>
                 <h3 style="margin-bottom:16px">Vui lòng đăng nhập</h3>
                 <p style="color:#666;margin-bottom:24px">Bạn cần đăng nhập để gửi phản hồi</p>
                 <a href="{{ route('login') }}" class="btn">Đăng nhập ngay</a>
@@ -79,6 +64,15 @@ document.querySelectorAll('.rating-star').forEach(star => {
             }
         });
     });
+});
+
+// Set default rating to 5
+document.querySelector('input[name="rating"][value="5"]').checked = true;
+document.querySelectorAll('.rating-star').forEach(s => {
+    if (s.dataset.value <= 5) {
+        s.classList.remove('far');
+        s.classList.add('fas');
+    }
 });
 </script>
 @endsection

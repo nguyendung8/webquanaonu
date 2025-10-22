@@ -7,7 +7,7 @@
     <title>{{ $title ?? 'Quản trị' }} - Pamela Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root{--coffee:#6f4e37;--cream:#f7efe7;--dark:#2b231e;--accent:#c08552;--leaf:#3a5a40;--border:#e6dbd3;}
+        :root{--coffee:#2097e3;--cream:#f7efe7;--dark:#2b231e;--accent:#24658f;--leaf:#3a5a40;--border:#e6dbd3;}
         *{box-sizing:border-box;margin:0;padding:0}
         body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f9f6f2;color:var(--dark)}
         .header{position:fixed;top:0;left:0;right:0;height:60px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.03)}
@@ -30,7 +30,7 @@
         .card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.04);border:1px solid var(--border)}
         .page-title{font-size:24px;color:var(--coffee);margin-bottom:20px;font-weight:700}
         .btn{appearance:none;border:none;background:var(--coffee);color:#fff;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;text-decoration:none;display:inline-block;transition:all .2s}
-        .btn:hover{background:#5d3f2e;transform:translateY(-1px)}
+        .btn:hover{background:#24658f;transform:translateY(-1px)}
         .btn-sm{padding:6px 12px;font-size:13px}
         .btn-secondary{background:var(--accent)}
         .btn-secondary:hover{background:#a86d3f}

@@ -12,7 +12,22 @@
                         <img src="{{ $item->product->image ? asset($item->product->image) : 'https://via.placeholder.com/120x120' }}" alt="{{ $item->product->name }}" style="width:120px;height:120px;object-fit:cover;border-radius:8px">
                         <div style="flex:1">
                             <h3 style="margin-bottom:8px">{{ $item->product->name }}</h3>
-                            <p style="color:var(--coffee);font-size:20px;font-weight:700;margin-bottom:12px">
+
+                            @if($item->size || $item->color)
+                                <div style="margin-bottom:8px;font-size:14px;color:#666">
+                                    @if($item->size)
+                                        <span>Size: <strong>{{ $item->size }}</strong></span>
+                                    @endif
+                                    @if($item->size && $item->color)
+                                        <span> | </span>
+                                    @endif
+                                    @if($item->color)
+                                        <span>Màu: <strong>{{ $item->color }}</strong></span>
+                                    @endif
+                                </div>
+                            @endif
+
+                            <p style="color:var(--pink);font-size:20px;font-weight:700;margin-bottom:12px">
                                 {{ number_format($item->product->price, 0, ',', '.') }}đ
                             </p>
                             <div style="display:flex;gap:12px;align-items:center">
@@ -32,7 +47,7 @@
                             </div>
                         </div>
                         <div style="text-align:right">
-                            <strong style="font-size:18px;color:var(--coffee)">
+                            <strong style="font-size:18px;color:var(--pink)">
                                 {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}đ
                             </strong>
                         </div>
@@ -42,7 +57,7 @@
 
             <div>
                 <div class="card" style="padding:24px;position:sticky;top:80px">
-                    <h3 style="margin-bottom:20px;color:var(--coffee)">Tổng đơn hàng</h3>
+                    <h3 style="margin-bottom:20px;color:var(--pink)">Tổng đơn hàng</h3>
                     <div style="display:flex;justify-content:space-between;margin-bottom:12px">
                         <span>Tạm tính:</span>
                         <span>{{ number_format($total, 0, ',', '.') }}đ</span>
@@ -52,7 +67,7 @@
                         <span>Miễn phí</span>
                     </div>
                     <div style="border-top:2px solid var(--border);padding-top:12px;margin-top:12px">
-                        <div style="display:flex;justify-content:space-between;font-size:20px;font-weight:700;color:var(--coffee)">
+                        <div style="display:flex;justify-content:space-between;font-size:20px;font-weight:700;color:var(--pink)">
                             <span>Tổng cộng:</span>
                             <span>{{ number_format($total, 0, ',', '.') }}đ</span>
                         </div>

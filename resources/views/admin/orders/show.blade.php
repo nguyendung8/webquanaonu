@@ -60,6 +60,7 @@
         <thead>
             <tr>
                 <th>Sản phẩm</th>
+                <th>Size/Màu</th>
                 <th>Đơn giá</th>
                 <th>Số lượng</th>
                 <th>Thành tiền</th>
@@ -69,13 +70,30 @@
             @foreach($order->items as $item)
             <tr>
                 <td>{{ $item->product ? $item->product->name : 'Sản phẩm đã xóa' }}</td>
+                <td>
+                    @if($item->size || $item->color)
+                        <div style="font-size:12px;color:#666">
+                            @if($item->size)
+                                <span>Size: {{ $item->size }}</span>
+                            @endif
+                            @if($item->size && $item->color)
+                                <br>
+                            @endif
+                            @if($item->color)
+                                <span>Màu: {{ $item->color }}</span>
+                            @endif
+                        </div>
+                    @else
+                        <span style="color:#999">-</span>
+                    @endif
+                </td>
                 <td>{{ number_format($item->price, 0, ',', '.') }}đ</td>
                 <td>{{ $item->quantity }}</td>
                 <td>{{ number_format($item->price * $item->quantity, 0, ',', '.') }}đ</td>
             </tr>
             @endforeach
             <tr style="font-weight:700;background:var(--cream)">
-                <td colspan="3">Tổng cộng</td>
+                <td colspan="4">Tổng cộng</td>
                 <td>{{ number_format($order->total, 0, ',', '.') }}đ</td>
             </tr>
         </tbody>

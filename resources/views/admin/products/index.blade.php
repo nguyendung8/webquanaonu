@@ -52,7 +52,27 @@
                 </td>
                 <td>
                     @if($product->colors->count() > 0)
-                        {{ $product->colors->pluck('color')->implode(', ') }}
+                        @foreach($product->colors as $color)
+                            @php
+                                // Always use mapping logic, ignore color_code from database
+                                $colorMap = [
+                                    'pink' => '#ffc0cb', 'white' => '#ffffff', 'blue' => '#0000ff',
+                                    'red' => '#ff0000', 'black' => '#000000', 'yellow' => '#ffff00',
+                                    'green' => '#008000', 'purple' => '#800080', 'orange' => '#ffa500',
+                                    'gray' => '#808080', 'grey' => '#808080', 'brown' => '#a52a2a',
+                                    'navy' => '#000080', 'maroon' => '#800000', 'teal' => '#008080',
+                                    'lime' => '#00ff00', 'cyan' => '#00ffff', 'magenta' => '#ff00ff',
+                                    'silver' => '#c0c0c0', 'gold' => '#ffd700',
+                                ];
+                                // Trim and lowercase the color name for matching
+                                $cleanColor = strtolower(trim($color->color));
+                                $colorCode = $colorMap[$cleanColor] ?? '#cccccc';
+                            @endphp
+                            <span style="display:inline-flex;align-items:center;gap:4px;margin-right:8px">
+                                <span style="width:12px;height:12px;border-radius:50%;background-color:{{ $colorCode }};border:1px solid #ddd;display:inline-block"></span>
+                                {{ $color->color }}
+                            </span>
+                        @endforeach
                     @else
                         —
                     @endif
@@ -276,6 +296,11 @@ function removeColorInput(button) {
     if (container.children.length > 1) {
         button.parentElement.remove();
     }
+}
+
+// Thêm function này
+function closeModal() {
+    document.getElementById('productModal').style.display = 'none';
 }
 
 window.onclick = function(e) {

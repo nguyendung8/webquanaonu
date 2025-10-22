@@ -28,14 +28,30 @@ class CartController extends Controller
             return redirect()->route('login');
         }
 
-        $cart = Cart::firstOrCreate([
-            'user_id' => auth()->id(),
-            'product_id' => $product->id,
-        ], [
-            'quantity' => 0
+        $request->validate([
+            'quantity' => 'required|integer|min:1|max:10',
+            'size' => 'nullable|string|max:20',
+            'color' => 'nullable|string|max:50',
         ]);
 
-        $cart->increment('quantity', $request->input('quantity', 1));
+        // Check if same product with same size and color already exists
+        $existingCart = Cart::where('user_id', auth()->id())
+            ->where('product_id', $product->id)
+            ->where('size', $request->size)
+            ->where('color', $request->color)
+            ->first();
+
+        if ($existingCart) {
+            $existingCart->increment('quantity', $request->quantity);
+        } else {
+            Cart::create([
+                'user_id' => auth()->id(),
+                'product_id' => $product->id,
+                'quantity' => $request->quantity,
+                'size' => $request->size,
+                'color' => $request->color,
+            ]);
+        }
 
         return back()->with('success', 'Đã thêm vào giỏ hàng!');
     }

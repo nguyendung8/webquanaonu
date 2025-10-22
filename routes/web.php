@@ -20,6 +20,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 Route::get('/products', [\App\Http\Controllers\User\ProductController::class, 'index'])->name('user.products');
 Route::get('/products/{product}', [\App\Http\Controllers\User\ProductController::class, 'show'])->name('user.products.show');
 
+Route::post('/reviews', [\App\Http\Controllers\User\ReviewController::class, 'store'])->middleware('auth')->name('user.reviews.store');
+
 
 Route::get('/feedback', [\App\Http\Controllers\User\FeedbackController::class, 'index'])->name('user.feedback');
 Route::post('/feedback', [\App\Http\Controllers\User\FeedbackController::class, 'store'])->middleware('auth')->name('user.feedback.store');

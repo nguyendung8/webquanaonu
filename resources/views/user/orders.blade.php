@@ -8,7 +8,7 @@
         <div class="card" style="margin-bottom:20px;padding:24px">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:16px;border-bottom:2px solid var(--border)">
                 <div>
-                    <h3 style="color:var(--coffee)">Đơn hàng #{{ $order->id }}</h3>
+                    <h3 style="color:var(--pink)">Đơn hàng #{{ $order->id }}</h3>
                     <p style="color:#666;font-size:14px">{{ $order->created_at->format('d/m/Y H:i') }}</p>
                 </div>
                 <div style="text-align:right">
@@ -19,7 +19,7 @@
                     @else
                         <span class="badge" style="background:#f8d7da;color:#721c24;padding:6px 12px;border-radius:999px;font-size:14px">Đã hủy</span>
                     @endif
-                    <div style="font-size:24px;color:var(--coffee);font-weight:700;margin-top:8px">
+                    <div style="font-size:24px;color:var(--pink);font-weight:700;margin-top:8px">
                         {{ number_format($order->total, 0, ',', '.') }}đ
                     </div>
                 </div>
@@ -29,7 +29,22 @@
                 <strong style="display:block;margin-bottom:12px">Chi tiết sản phẩm:</strong>
                 @foreach($order->items as $item)
                     <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0">
-                        <span>{{ $item->product ? $item->product->name : 'Sản phẩm đã xóa' }} x{{ $item->quantity }}</span>
+                        <div>
+                            <span>{{ $item->product ? $item->product->name : 'Sản phẩm đã xóa' }} x{{ $item->quantity }}</span>
+                            @if($item->size || $item->color)
+                                <div style="font-size:12px;color:#666;margin-top:2px">
+                                    @if($item->size)
+                                        <span>Size: {{ $item->size }}</span>
+                                    @endif
+                                    @if($item->size && $item->color)
+                                        <span> | </span>
+                                    @endif
+                                    @if($item->color)
+                                        <span>Màu: {{ $item->color }}</span>
+                                    @endif
+                                </div>
+                            @endif
+                        </div>
                         <span>{{ number_format($item->price * $item->quantity, 0, ',', '.') }}đ</span>
                     </div>
                 @endforeach

@@ -6,7 +6,7 @@
     <title>{{ $title ?? 'Pamela Shop' }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root{--coffee:#6f4e37;--cream:#f7efe7;--dark:#2b231e;--accent:#c08552;--leaf:#3a5a40;--border:#e6dbd3;}
+        :root{--coffee:#2097e3;--cream:#aad5f1;--dark:#2b231e;--accent:#24658f;--leaf:#3a5a40;--border:#e6dbd3;}
         *{box-sizing:border-box;margin:0;padding:0}
         body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#fff;color:var(--dark);line-height:1.6}
 
@@ -49,7 +49,7 @@
         .product-desc{font-size:14px;color:#666;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
         .btn{appearance:none;border:none;background:var(--coffee);color:#fff;padding:12px 24px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;text-decoration:none;display:inline-block;transition:all .2s}
-        .btn:hover{background:#5d3f2e;transform:translateY(-1px)}
+        .btn:hover{background:#24658f;transform:translateY(-1px)}
         .btn-secondary{background:var(--accent)}
         .btn-secondary:hover{background:#a86d3f}
         .btn-outline{background:transparent;border:2px solid var(--coffee);color:var(--coffee)}

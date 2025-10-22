@@ -7,7 +7,7 @@
     <link rel="icon" href="/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root{--coffee:#6f4e37;--cream:#f7efe7;--dark:#2b231e;--accent:#c08552;--leaf:#3a5a40;}
+        :root{--coffee:#2097e3;--cream:#aad5f1;--dark:#2b231e;--accent:#24658f;--leaf:#3a5a40;}
         *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(135deg,var(--cream),#fff)}
         .wrap{min-height:100vh;display:grid;place-items:center;padding:24px}
         .card{width:100%;max-width:900px;display:grid;grid-template-columns:1.2fr 1fr;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.08)}
@@ -26,7 +26,7 @@
         input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(192,133,82,.12)}
         .row{display:grid;gap:14px}
         .btn{appearance:none;border:none;background:var(--coffee);color:#fff;padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer;font-size:14px;transition:transform .04s, background .2s}
-        .btn:hover{background:#5d3f2e}
+        .btn:hover{background:#24658f}
         .btn:active{transform:translateY(1px)}
         .muted{font-size:13px;color:#6c5a52}
         a.link{color:var(--leaf);text-decoration:none;font-weight:600}
