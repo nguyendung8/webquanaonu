@@ -2,7 +2,7 @@
 
 @section('content')
     <h2>Tạo tài khoản</h2>
-    <p class="sub">Tham gia cộng đồng yêu mèo tại Cafe Meo.</p>
+    <p class="sub">Tham gia cộng đồng thời trang nữ tại Pamela Shop.</p>
 
     @if ($errors->any())
         <div class="alert">

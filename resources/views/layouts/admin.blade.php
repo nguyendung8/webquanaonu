@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title ?? 'Quản trị' }} - Cafe Meo</title>
+    <title>{{ $title ?? 'Quản trị' }} - Pamela Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root{--coffee:#6f4e37;--cream:#f7efe7;--dark:#2b231e;--accent:#c08552;--leaf:#3a5a40;--border:#e6dbd3;}
@@ -71,7 +71,7 @@
 <header class="header">
     <div class="brand">
         <div class="logo"></div>
-        <span>Cafe Meo Admin</span>
+        <span>Pamela Shop Admin</span>
     </div>
     <div class="user-dropdown">
         <div class="user-toggle" onclick="toggleDropdown()">
@@ -97,24 +97,16 @@
         <span>Dashboard</span>
     </a>
     <a href="{{ route('admin.products.index') }}" class="menu-item {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
-        <i class="fas fa-mug-hot"></i>
+        <i class="fas fa-tshirt"></i>
         <span>Sản phẩm</span>
     </a>
     <a href="{{ route('admin.categories.index') }}" class="menu-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
         <i class="fas fa-folder"></i>
         <span>Danh mục</span>
     </a>
-    <a href="{{ route('admin.cats.index') }}" class="menu-item {{ request()->routeIs('admin.cats.*') ? 'active' : '' }}">
-        <i class="fas fa-cat"></i>
-        <span>Mèo</span>
-    </a>
     <a href="{{ route('admin.orders.index') }}" class="menu-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
         <i class="fas fa-shopping-cart"></i>
         <span>Đơn hàng</span>
-    </a>
-    <a href="{{ route('admin.bookings.index') }}" class="menu-item {{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}">
-        <i class="fas fa-calendar-check"></i>
-        <span>Booking mèo</span>
     </a>
     <a href="{{ route('admin.feedbacks.index') }}" class="menu-item {{ request()->routeIs('admin.feedbacks.*') ? 'active' : '' }}">
         <i class="fas fa-comments"></i>
@@ -127,10 +119,6 @@
     <a href="{{ route('admin.stats') }}" class="menu-item {{ request()->routeIs('admin.stats') ? 'active' : '' }}">
         <i class="fas fa-chart-line"></i>
         <span>Thống kê</span>
-    </a>
-    <a href="{{ route('home') }}" class="menu-item">
-        <i class="fas fa-home"></i>
-        <span>Về trang chủ</span>
     </a>
 </aside>
 

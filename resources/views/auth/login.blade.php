@@ -2,7 +2,7 @@
 
 @section('content')
     <h2>Đăng nhập</h2>
-    <p class="sub">Vào quầy gọi món và đặt lịch chơi cùng mèo.</p>
+    <p class="sub">Đăng nhập để mua sắm thời trang nữ tại Pamela Shop.</p>
 
     @if ($errors->any())
         <div class="alert">

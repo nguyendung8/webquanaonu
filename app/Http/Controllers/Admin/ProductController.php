@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\ProductImage;
+use App\Models\ProductSize;
+use App\Models\ProductColor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,7 +15,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::with('category');
+        $query = Product::with(['category', 'sizes', 'colors']);
 
         if ($request->filled('search')) {
             $query->where('name', 'like', '%'.$request->search.'%');
@@ -40,8 +43,17 @@ class ProductController extends Controller
             'category_id' => ['required','exists:category,id'],
             'price' => ['required','numeric','min:0'],
             'description' => ['nullable','string'],
+            'material' => ['nullable','string','max:100'],
+            'brand' => ['nullable','string','max:50'],
             'availability' => ['boolean'],
             'image' => ['nullable','image','max:2048'],
+            'images.*' => ['nullable','image','max:2048'],
+            'sizes' => ['nullable','array'],
+            'sizes.*' => ['string','max:20'],
+            'colors' => ['nullable','array'],
+            'colors.*' => ['string','max:50'],
+            'color_codes' => ['nullable','array'],
+            'color_codes.*' => ['nullable','string','max:7'],
         ]);
 
         if ($request->hasFile('image')) {
@@ -51,7 +63,47 @@ class ProductController extends Controller
             $data['image'] = 'storage/products/' . $filename;
         }
 
-        Product::create($data);
+        $product = Product::create($data);
+
+        // Handle multiple images
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $index => $file) {
+                $filename = time() . '_' . uniqid() . '_' . $index . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('storage/products'), $filename);
+
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image_path' => 'storage/products/' . $filename,
+                    'is_primary' => $index === 0 ? 1 : 0
+                ]);
+            }
+        }
+
+        // Handle sizes
+        if ($request->has('sizes')) {
+            foreach ($request->sizes as $size) {
+                if (!empty($size)) {
+                    ProductSize::create([
+                        'product_id' => $product->id,
+                        'size' => $size,
+                        'stock' => 0
+                    ]);
+                }
+            }
+        }
+
+        // Handle colors
+        if ($request->has('colors')) {
+            foreach ($request->colors as $index => $color) {
+                if (!empty($color)) {
+                    ProductColor::create([
+                        'product_id' => $product->id,
+                        'color' => $color,
+                        'color_code' => $request->color_codes[$index] ?? null
+                    ]);
+                }
+            }
+        }
 
         return redirect()->route('admin.products.index')->with('success', 'Đã thêm sản phẩm thành công.');
     }
@@ -64,8 +116,17 @@ class ProductController extends Controller
             'category_id' => ['required','exists:category,id'],
             'price' => ['required','numeric','min:0'],
             'description' => ['nullable','string'],
+            'material' => ['nullable','string','max:100'],
+            'brand' => ['nullable','string','max:50'],
             'availability' => ['boolean'],
             'image' => ['nullable','image','max:2048'],
+            'images.*' => ['nullable','image','max:2048'],
+            'sizes' => ['nullable','array'],
+            'sizes.*' => ['string','max:20'],
+            'colors' => ['nullable','array'],
+            'colors.*' => ['string','max:50'],
+            'color_codes' => ['nullable','array'],
+            'color_codes.*' => ['nullable','string','max:7'],
         ]);
 
         if ($request->hasFile('image')) {
@@ -79,6 +140,48 @@ class ProductController extends Controller
         }
 
         $product->update($data);
+
+        // Handle multiple images
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $index => $file) {
+                $filename = time() . '_' . uniqid() . '_' . $index . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('storage/products'), $filename);
+
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image_path' => 'storage/products/' . $filename,
+                    'is_primary' => 0
+                ]);
+            }
+        }
+
+        // Handle sizes - delete existing and create new ones
+        $product->sizes()->delete();
+        if ($request->has('sizes')) {
+            foreach ($request->sizes as $size) {
+                if (!empty($size)) {
+                    ProductSize::create([
+                        'product_id' => $product->id,
+                        'size' => $size,
+                        'stock' => 0
+                    ]);
+                }
+            }
+        }
+
+        // Handle colors - delete existing and create new ones
+        $product->colors()->delete();
+        if ($request->has('colors')) {
+            foreach ($request->colors as $index => $color) {
+                if (!empty($color)) {
+                    ProductColor::create([
+                        'product_id' => $product->id,
+                        'color' => $color,
+                        'color_code' => $request->color_codes[$index] ?? null
+                    ]);
+                }
+            }
+        }
 
         return redirect()->route('admin.products.index')->with('success', 'Đã cập nhật sản phẩm.');
     }

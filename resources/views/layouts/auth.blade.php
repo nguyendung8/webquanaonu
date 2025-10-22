@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Cafe Meo' }}</title>
+    <title>{{ $title ?? 'Pamela Shop' }}</title>
     <link rel="icon" href="/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -11,7 +11,7 @@
         *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(135deg,var(--cream),#fff)}
         .wrap{min-height:100vh;display:grid;place-items:center;padding:24px}
         .card{width:100%;max-width:900px;display:grid;grid-template-columns:1.2fr 1fr;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.08)}
-        .hero{position:relative;background:linear-gradient(160deg,rgba(47,33,27,.8),rgba(47,33,27,.6)),url('https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=1600&auto=format&fit=crop') center/cover;color:#fff;padding:48px}
+        .hero{position:relative;background:linear-gradient(160deg,rgba(47,33,27,.8),rgba(47,33,27,.6)),url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1600&auto=format&fit=crop') center/cover;color:#fff;padding:48px}
         .hero h1{margin:0 0 8px;font-size:38px;letter-spacing:.5px}
         .hero p{margin:0;opacity:.9}
         .badge{display:inline-block;margin-top:16px;background:var(--accent);color:#fff;padding:6px 12px;border-radius:999px;font-size:12px}
@@ -43,14 +43,14 @@
 <div class="wrap">
     <div class="card">
         <div class="hero">
-            <h1>Cafe Meo</h1>
-            <p>Hương vị đậm đà – Không gian ấm áp.</p>
+            <h1>Pamela Shop</h1>
+            <p>Thời trang nữ cao cấp – Phong cách độc đáo.</p>
             <span class="badge">Welcome</span>
         </div>
         <div class="panel">
             <div class="brand">
                 <div class="logo"></div>
-                <strong>Cafe Meo</strong>
+                <strong>Pamela Shop</strong>
             </div>
             @if (session('error'))
                 <div class="alert">{{ session('error') }}</div>

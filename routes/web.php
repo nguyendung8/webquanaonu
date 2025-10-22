@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\CatController;
 
 Route::get('/', [\App\Http\Controllers\User\HomeController::class, 'index'])->name('home');
 
@@ -21,9 +20,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 Route::get('/products', [\App\Http\Controllers\User\ProductController::class, 'index'])->name('user.products');
 Route::get('/products/{product}', [\App\Http\Controllers\User\ProductController::class, 'show'])->name('user.products.show');
 
-Route::get('/cats', [\App\Http\Controllers\User\CatController::class, 'index'])->name('user.cats');
-Route::get('/cats/{cat}/book', [\App\Http\Controllers\User\CatController::class, 'showBookingForm'])->name('user.cats.book');
-Route::post('/cats/{cat}/book', [\App\Http\Controllers\User\CatController::class, 'book'])->name('user.cats.book.store');
 
 Route::get('/feedback', [\App\Http\Controllers\User\FeedbackController::class, 'index'])->name('user.feedback');
 Route::post('/feedback', [\App\Http\Controllers\User\FeedbackController::class, 'store'])->middleware('auth')->name('user.feedback.store');
@@ -45,7 +41,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/change-password', [\App\Http\Controllers\User\ProfileController::class, 'showChangePassword'])->name('user.change-password');
     Route::patch('/change-password', [\App\Http\Controllers\User\ProfileController::class, 'changePassword'])->name('user.change-password.update');
 
-    Route::get('/bookings', [\App\Http\Controllers\User\BookingController::class, 'index'])->name('user.bookings');
 });
 
 Route::middleware(['auth','is_admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -55,13 +50,10 @@ Route::middleware(['auth','is_admin'])->prefix('admin')->name('admin.')->group(f
     Route::resource('categories', CategoryController::class)->except(['show']);
     Route::resource('products', ProductController::class)->except(['show']);
     Route::patch('products/{product}/toggle-availability', [ProductController::class, 'toggleAvailability'])->name('products.toggleAvailability');
-    Route::resource('cats', CatController::class)->except(['show']);
 
     Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->only(['index', 'show', 'destroy']);
     Route::patch('orders/{order}/status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
-    Route::resource('bookings', \App\Http\Controllers\Admin\BookingController::class)->only(['index', 'show', 'destroy']);
-    Route::patch('bookings/{booking}/status', [\App\Http\Controllers\Admin\BookingController::class, 'updateStatus'])->name('bookings.updateStatus');
 
     Route::resource('feedbacks', \App\Http\Controllers\Admin\FeedbackController::class)->only(['index', 'destroy']);
 

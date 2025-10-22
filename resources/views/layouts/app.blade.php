@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Cafe Meo' }}</title>
+    <title>{{ $title ?? 'Pamela Shop' }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root{--coffee:#6f4e37;--cream:#f7efe7;--dark:#2b231e;--accent:#c08552;--leaf:#3a5a40;--border:#e6dbd3;}
@@ -80,7 +80,7 @@
     <div class="header-top">
         <a href="{{ route('home') }}" class="logo">
             <div class="logo-img"></div>
-            <span>Cafe Meo</span>
+            <span>Pamela Shop</span>
         </a>
 
         <nav class="nav">
@@ -89,10 +89,10 @@
             <a href="{{ route('user.feedback') }}" class="{{ request()->routeIs('user.feedback') ? 'active' : '' }}">Phản hồi</a>
             @auth
                 <a href="{{ route('user.orders') }}" class="{{ request()->routeIs('user.orders') ? 'active' : '' }}">Đơn hàng</a>
-                <a href="{{ route('user.bookings') }}" class="{{ request()->routeIs('user.bookings') ? 'active' : '' }}">Đặt lịch</a>
+                <a href="{{ route('user.cart') }}" class="{{ request()->routeIs('user.cart') ? 'active' : '' }}">Giỏ hàng</a>
             @else
                 <a href="{{ route('login') }}">Đơn hàng</a>
-                <a href="{{ route('login') }}">Đặt lịch</a>
+                <a href="{{ route('login') }}">Giỏ hàng</a>
             @endauth
         </nav>
 
@@ -154,8 +154,8 @@
 <footer class="footer">
     <div class="footer-content">
         <div>
-            <h4>Về Cafe Meo</h4>
-            <p style="color:#ccc">Không gian ấm cúng với hương vị cafe đậm đà và những chú mèo đáng yêu.</p>
+            <h4>Về Pamela Shop</h4>
+            <p style="color:#ccc">Cửa hàng thời trang nữ cao cấp với những sản phẩm chất lượng và phong cách độc đáo.</p>
         </div>
         <div>
             <h4>Liên kết</h4>
@@ -165,12 +165,12 @@
         </div>
         <div>
             <h4>Liên hệ</h4>
-            <p style="color:#ccc">Email: contact@cafemeo.com</p>
+            <p style="color:#ccc">Email: contact@pamelashop.com</p>
             <p style="color:#ccc">Phone: 0123 456 789</p>
         </div>
     </div>
     <div style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid #444;color:#888">
-        © 2025 Cafe Meo. All rights reserved.
+        © 2025 Pamela Shop. All rights reserved.
     </div>
 </footer>
 
