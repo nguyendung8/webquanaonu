@@ -40,6 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkout', [\App\Http\Controllers\User\CheckoutController::class, 'placeOrder'])
         ->name('user.checkout.place');
 
+    Route::get('/profile', [\App\Http\Controllers\User\ProfileController::class, 'showProfile'])->name('user.profile');
+    Route::patch('/profile', [\App\Http\Controllers\User\ProfileController::class, 'updateProfile'])->name('user.profile.update');
+    
     Route::get('/change-password', [\App\Http\Controllers\User\ProfileController::class, 'showChangePassword'])->name('user.change-password');
     Route::patch('/change-password', [\App\Http\Controllers\User\ProfileController::class, 'changePassword'])->name('user.change-password.update');
 

@@ -6,6 +6,36 @@
 
     <div style="display:grid;grid-template-columns:2fr 1fr;gap:24px">
         <div>
+            <div class="card" style="padding:20px;margin-bottom:16px">
+                <h3 style="margin-bottom:12px;color:var(--coffee)">Thông tin giao hàng</h3>
+                
+                @if(auth()->user()->address)
+                    <div style="background:#f8f9fa;padding:16px;border-radius:8px;margin-bottom:16px">
+                        <h4 style="margin-bottom:8px;color:var(--coffee)">Địa chỉ giao hàng</h4>
+                        <p style="margin:4px 0;color:#666"><strong>Tên:</strong> {{ auth()->user()->username }}</p>
+                        @if(auth()->user()->phone)
+                            <p style="margin:4px 0;color:#666"><strong>SĐT:</strong> {{ auth()->user()->phone }}</p>
+                        @endif
+                        <p style="margin:4px 0;color:#666"><strong>Địa chỉ:</strong> {{ auth()->user()->address }}</p>
+                    </div>
+                    <div style="text-align:center">
+                        <a href="{{ route('user.profile') }}" class="btn btn-secondary" style="display:inline-flex;align-items:center;gap:8px">
+                            <i class="fas fa-edit"></i> Chỉnh sửa địa chỉ
+                        </a>
+                    </div>
+                @else
+                    <div style="background:#fff3cd;padding:16px;border-radius:8px;margin-bottom:16px;border-left:4px solid #ffc107">
+                        <h4 style="margin-bottom:8px;color:#856404">Chưa có địa chỉ giao hàng</h4>
+                        <p style="margin:0;color:#856404">Vui lòng cập nhật địa chỉ giao hàng để tiếp tục đặt hàng.</p>
+                    </div>
+                    <div style="text-align:center">
+                        <a href="{{ route('user.profile') }}" class="btn" style="display:inline-flex;align-items:center;gap:8px">
+                            <i class="fas fa-plus"></i> Thêm địa chỉ giao hàng
+                        </a>
+                    </div>
+                @endif
+            </div>
+
             <div class="card" style="padding:20px">
                 <h3 style="margin-bottom:12px;color:var(--coffee)">Phương thức thanh toán</h3>
 

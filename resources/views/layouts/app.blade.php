@@ -13,7 +13,7 @@
         .header{position:sticky;top:0;background:#fff;border-bottom:2px solid var(--border);z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.05)}
         .header-top{display:flex;align-items:center;justify-content:space-between;padding:16px 5%;max-width:1400px;margin:0 auto}
         .logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--coffee);font-size:24px;font-weight:700}
-        .logo-img{width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#8b5e3c,var(--coffee))}
+        .logo-img{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#ff6b6b,#ff8e8e);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;box-shadow:0 4px 12px rgba(255,107,107,0.3)}
 
         .nav{display:flex;gap:32px;align-items:center}
         .nav a{text-decoration:none;color:var(--dark);font-weight:500;transition:color .2s;position:relative}
@@ -79,7 +79,9 @@
 <header class="header">
     <div class="header-top">
         <a href="{{ route('home') }}" class="logo">
-            <div class="logo-img"></div>
+            <div class="logo-img">
+                <i class="fas fa-tshirt"></i>
+            </div>
             <span>Pamela Shop</span>
         </a>
 
@@ -114,6 +116,10 @@
                         <i class="fas fa-chevron-down" style="font-size:12px"></i>
                     </div>
                     <div class="dropdown-menu" id="userDropdown">
+                        <a href="{{ route('user.profile') }}">
+                            <i class="fas fa-user"></i>
+                            <span>Thông tin cá nhân</span>
+                        </a>
                         <a href="{{ route('user.change-password') }}">
                             <i class="fas fa-key"></i>
                             <span>Đổi mật khẩu</span>

@@ -36,6 +36,10 @@ class CheckoutController extends Controller
             'payment_img.max' => 'Kích thước ảnh tối đa 4MB.',
         ]);
 
+        if (empty(auth()->user()->address)) {
+            return redirect()->route('user.checkout')->with('error', 'Vui lòng cập nhật địa chỉ giao hàng trước khi đặt hàng.');
+        }
+
         $cartItems = Cart::with('product')->where('user_id', auth()->id())->get();
         if ($cartItems->isEmpty()) {
             return redirect()->route('user.cart')->with('error', 'Giỏ hàng trống.');

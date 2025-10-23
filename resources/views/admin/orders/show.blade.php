@@ -13,6 +13,12 @@
             <h3 style="margin-bottom:12px">Thông tin khách hàng</h3>
             <p><strong>Tên:</strong> {{ $order->user->username }}</p>
             <p><strong>Email:</strong> {{ $order->user->email }}</p>
+            @if($order->user->phone)
+                <p><strong>Số điện thoại:</strong> {{ $order->user->phone }}</p>
+            @endif
+            @if($order->user->address)
+                <p><strong>Địa chỉ giao hàng:</strong> {{ $order->user->address }}</p>
+            @endif
             <p><strong>Ngày đặt:</strong> {{ $order->created_at->format('d/m/Y H:i') }}</p>
         </div>
         <div>

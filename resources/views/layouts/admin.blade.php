@@ -12,7 +12,7 @@
         body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f9f6f2;color:var(--dark)}
         .header{position:fixed;top:0;left:0;right:0;height:60px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.03)}
         .brand{display:flex;align-items:center;gap:10px;color:var(--coffee);font-weight:700;font-size:18px}
-        .logo{width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#8b5e3c,var(--coffee))}
+        .logo{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#ff6b6b,#ff8e8e);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;box-shadow:0 4px 12px rgba(255,107,107,0.3)}
         .user-dropdown{position:relative}
         .user-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:#fff;transition:all .2s;color:var(--coffee);font-weight:600;font-size:14px}
         .user-toggle:hover{background:var(--cream)}
@@ -70,7 +70,9 @@
 <body>
 <header class="header">
     <div class="brand">
-        <div class="logo"></div>
+        <div class="logo">
+            <i class="fas fa-tshirt"></i>
+        </div>
         <span>Pamela Shop Admin</span>
     </div>
     <div class="user-dropdown">
