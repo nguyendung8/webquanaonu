@@ -4,6 +4,10 @@
 <div class="card">
     <div style="margin-bottom:20px">
         <a href="{{ route('admin.orders.index') }}" class="btn btn-secondary">← Quay lại</a>
+        <a href="{{ route('admin.orders.pdf', $order) }}" class="btn" style="margin-left:12px;display:inline-flex;align-items:center;gap:8px">
+            <i class="fas fa-file-pdf"></i>
+            Xuất PDF
+        </a>
     </div>
 
     <h1 class="page-title">Đơn hàng #{{ $order->id }}</h1>

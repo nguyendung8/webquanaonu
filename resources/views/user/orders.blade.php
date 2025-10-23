@@ -22,6 +22,12 @@
                     <div style="font-size:24px;color:var(--pink);font-weight:700;margin-top:8px">
                         {{ number_format($order->total, 0, ',', '.') }}đ
                     </div>
+                    <div style="margin-top:12px">
+                        <a href="{{ route('user.orders.pdf', $order) }}" class="btn btn-secondary" style="padding:8px 16px;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:6px">
+                            <i class="fas fa-file-pdf"></i>
+                            Xuất PDF
+                        </a>
+                    </div>
                 </div>
             </div>
 

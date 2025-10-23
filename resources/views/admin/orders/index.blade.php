@@ -52,6 +52,10 @@
                 <td>
                     <div class="actions">
                         <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-sm btn-secondary">Chi tiết</a>
+                            <a href="{{ route('admin.orders.pdf', $order) }}" class="btn btn-sm" style="background:#dc3545;color:#fff;display:inline-flex;align-items:center;gap:4px">
+                                <i class="fas fa-file-pdf" style="font-size:12px"></i>
+                                PDF
+                            </a>
                         @if($order->status === 'pending')
                             <form action="{{ route('admin.orders.updateStatus', $order) }}" method="POST" style="display:inline">
                                 @csrf

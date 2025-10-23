@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -25,6 +26,16 @@ class OrderController extends Controller
     {
         $order->load('user', 'items.product');
         return view('admin.orders.show', compact('order'));
+    }
+
+    public function exportPdf(Order $order)
+    {
+        $order->load('user', 'items.product');
+        
+        $pdf = Pdf::loadView('pdf.order', compact('order'));
+        $pdf->setPaper('A4', 'portrait');
+        
+        return $pdf->download("don-hang-{$order->id}.pdf");
     }
 
     public function updateStatus(Request $request, Order $order)

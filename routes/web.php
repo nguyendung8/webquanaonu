@@ -28,6 +28,7 @@ Route::post('/feedback', [\App\Http\Controllers\User\FeedbackController::class, 
 
 Route::middleware('auth')->group(function () {
     Route::get('/orders', [\App\Http\Controllers\User\OrderController::class, 'index'])->name('user.orders');
+    Route::get('/orders/{order}/pdf', [\App\Http\Controllers\User\OrderController::class, 'exportPdf'])->name('user.orders.pdf');
 
     Route::get('/cart', [\App\Http\Controllers\User\CartController::class, 'index'])->name('user.cart');
     Route::post('/cart/{product}', [\App\Http\Controllers\User\CartController::class, 'add'])->name('user.cart.add');
@@ -57,6 +58,7 @@ Route::middleware(['auth','is_admin'])->prefix('admin')->name('admin.')->group(f
     Route::patch('products/{product}/toggle-availability', [ProductController::class, 'toggleAvailability'])->name('products.toggleAvailability');
 
     Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->only(['index', 'show', 'destroy']);
+    Route::get('orders/{order}/pdf', [\App\Http\Controllers\Admin\OrderController::class, 'exportPdf'])->name('orders.pdf');
     Route::patch('orders/{order}/status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
 
