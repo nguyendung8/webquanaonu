@@ -57,14 +57,14 @@
                         <div class="card" style="padding:16px;background:#fffdf9">
                             <h4 style="margin-bottom:10px">Thông tin chuyển khoản</h4>
                             <ul style="list-style:none;padding:0;margin:0;color:#4a3a33">
-                                <li><strong>Ngân hàng:</strong> TP Bank</li>
-                                <li><strong>Chủ TK:</strong> NGUYEN NGOC LINH</li>
-                                <li><strong>Số TK:</strong> 00000088945</li>
-                                <li><strong>Nội dung:</strong> CAFE-{{ auth()->id() }}-{{ now()->format('ymdHis') }}</li>
+                                <li><strong>Ngân hàng:</strong>Vietcombank</li>
+                                <li><strong>Chủ TK:</strong> HA THI ANH NGOC</li>
+                                <li><strong>Số TK:</strong> 1023198407</li>
+                                <li><strong>Nội dung:</strong> Shop-{{ auth()->id() }}-{{ now()->format('ymdHis') }}</li>
                             </ul>
                             <div style="display:flex;gap:16px;align-items:center;margin-top:12px">
                                 <div>
-                                    <img src="{{ asset('images/qr.jpg') }}" alt="QR" style="width:160px;height:160px;object-fit:cover;border-radius:8px;border:1px solid var(--border)">
+                                    <img src="{{ asset('images/qr_code.png') }}" alt="QR" style="width:160px;height:160px;object-fit:cover;border-radius:8px;border:1px solid var(--border)">
                                 </div>
                                 <div style="flex:1">
                                     <label for="payment_img" style="font-weight:600;margin-bottom:8px;display:block">Upload ảnh chuyển khoản</label>
